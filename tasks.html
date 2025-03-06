@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tasks</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <a href="./index.html">
+        <img class="icon" src="./reindeer.png" alt="Logo" />
+      </a>
+
+      <label
+        class="name"
+        for="userphoto"
+        style="color: white; float: right; padding-right: 10px"
+        >James Bond</label
+      >
+      <input
+        class="icon"
+        type="image"
+        id="userphoto"
+        src="./user.png"
+        alt="User photo"
+        style="float: right"
+      />
+      <input
+        class="icon"
+        type="image"
+        src="./bell.png"
+        alt="Bell"
+        style="float: right"
+      />
+    </header>
+
+    <aside class="mainNav">
+      <nav>
+        <ul style="list-style-type: none">
+          <li><a href="./dashboard.html" target="_self">Dashboard</a></li>
+          <li>
+            <a href="./index.html" target="_self">Students</a>
+          </li>
+          <li>
+            <a href="./tasks.html" target="_self" style="font-weight: bold"
+              >Tasks</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </aside>
+    <aside>
+      <button class="menu-button">
+        <img src="./menu.png" alt="Menu" style="width: 100%" />
+      </button>
+    </aside>
+
+    <main>
+      <h1>Tasks</h1>
+      <div id="taskMain">
+        <div class="tasksDiv">
+          <div class="taskHeader">ToDo</div>
+          <div class="taskContent">
+            <div class="taskList">
+              <div class="task">
+                <span>Task #2</span>
+                <span>20.03</span>
+              </div>
+
+              <div class="task">
+                <span>Task #3</span>
+                <span>30.03</span>
+              </div>
+
+              <div class="task">
+                <span>Task #4</span>
+                <span>15.04</span>
+              </div>
+
+              <div class="task">
+                <span>Com... </span>
+                <span>15.04</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="addTask">
+            <button class="transparentBut">+ Add task</button>
+          </div>
+        </div>
+        <div class="tasksDiv">
+          <div class="taskHeader">In process</div>
+          <div class="taskContent">
+            <div class="taskList">
+              <div class="task">
+                <span>Task #1</span>
+                <span>10.03</span>
+              </div>
+            </div>
+          </div>
+          <div class="addTask">
+            <button class="transparentBut">+ Add task</button>
+          </div>
+        </div>
+        <div class="tasksDiv">
+          <div class="taskHeader">Done</div>
+          <div class="taskContent">
+            <div class="taskList">
+              <div class="task">
+                <span>Beginni... </span>
+                <span>10.03</span>
+              </div>
+            </div>
+          </div>
+          <div class="addTask">
+            <button class="transparentBut">+ Add task</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

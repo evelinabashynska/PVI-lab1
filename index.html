@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Students</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+  
+
+    <header>
+      <a href="./index.html">
+        <img class=icon src="./reindeer.png" alt="Logo">
+      </a>
+       
+      <label
+      class="name"
+      for="userphoto"
+      style="color: white; float: right; padding-right: 10px"
+      >James Bond</label
+    >
+        <input class=icon type="image" id="userphoto" src="./user.png" alt="User photo" style="float: right;">
+        <button  onclick="hideCircle()" class="iconButt" style="float: right;"><img class =icon src="./bell.png" alt="Bell"><span id="notification"></span></button>
+       
+
+      </header>
+
+
+    <aside class="mainNav">
+      <nav>
+        <ul style="list-style-type: none;">
+          <li><a href="./dashboard.html" target="_self">Dashboard</a></li>
+          <li><a href="./index.html" target="_self"  style="font-weight: bold">Students</a></li>
+          <li><a href="./tasks.html" target="_self">Tasks</a></li>
+        </ul>
+      </nav>
+    </aside>
+<aside>
+  <button class="menu-button">
+    <img src="./menu.png" alt="Menu" style="width: 1em;">
+  </button>
+</aside>
+
+    <main>
+      <h1>Students</h1>
+
+      <div class="tableDiv">
+      
+        <button  style="margin-bottom: 10px;">+</button>
+      
+      <table>
+        <tr>
+            <th><input type="checkbox"></th>
+            <th>Group</th>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Birthday</th>
+            <th>Status</th>
+            <th>Options</th>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>KN-21</td>
+            <td>John Smith</td>
+            <td>M</td>
+            <td>11.05.2004</td>
+            <td>
+                <svg width="20px" height="20px">
+                  <circle cx="10" cy="10" r="5" stroke="none" fill="green">
+                </svg>
+            </td>
+            <td>
+              <button class="optbut"><img class="opticon" src="pencil.png" alt="Pencil"></button>
+              <button class="optbut"><img class="opticon" src="trash.png" alt="Trash"></button>
+            </td>
+
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>KN-22</td>
+            <td>Ann Bond</td>
+            <td>F</td>
+            <td>24.04.2004</td>
+            <td>
+              <svg width="20px" height="20px">
+                <circle cx="10" cy="10" r="5" stroke="none" fill="gray">
+              </svg>
+          </td>
+          <td>
+            <button class="optbut"><img class="opticon" src="pencil.png" alt="Pencil"></button>
+            <button class="optbut"><img class="opticon" src="trash.png" alt="Trash"></button>
+          </td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+      </table>
+    </div>
+      
+      
+      <div class="navButDiv">
+<nav>
+  <button class="pageNavBut">&lt;</button>
+  <button class="pageNavBut">1</button>
+  <button class="pageNavBut">2</button>
+  <button class="pageNavBut">3</button>
+  <button class="pageNavBut">4</button>
+  <button class="pageNavBut">&gt</button>
+</nav>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

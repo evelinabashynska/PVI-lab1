@@ -1,0 +1,232 @@
+/*Телефони*/
+body {
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+  .mainNav {
+    display: none; /* Ховаємо стандартне меню */
+  }
+  .menu-button {
+    display: block; /* Кнопка для відкриття меню */
+  }
+  .tasksDiv {
+    width: 60%;
+  }
+  #taskMain {
+    justify-content: center;
+  }
+  .name {
+    display: none;
+  }
+}
+/*Планшети*/
+@media screen and (min-width: 480px) {
+  body {
+    font-size: 15px;
+    .mainNav {
+      display: block; /* Ховаємо стандартне меню */
+    }
+    .menu-button {
+      display: none; /* Кнопка для відкриття меню */
+    }
+    .name {
+      display: block;
+    }
+  }
+}
+
+/* Маленькі ноутбуки (від 768px) */
+@media screen and (min-width: 768px) {
+  body {
+    .tasksDiv {
+      width: 25%;
+    }
+    font-size: 18px;
+    #taskMain {
+      justify-content: left;
+    }
+  }
+}
+
+/* Великі ноутбуки (від 1024px) */
+@media screen and (min-width: 1024px) {
+  body {
+    font-size: 20px;
+  }
+}
+
+/* Десктопи (від 1440px) */
+@media screen and (min-width: 1440px) {
+  body {
+    font-size: 22px;
+  }
+}
+
+header {
+  background-color: darkgrey;
+}
+
+th,
+td {
+  border: 2px solid black;
+  text-align: center;
+  padding: 2px;
+}
+
+table {
+  width: 100%;
+  float: none;
+  border: 2px solid black;
+  border-collapse: collapse;
+}
+aside {
+  width: 20%;
+  float: left;
+}
+a:link {
+  color: dimgray;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+.iconButt {
+  background-color: transparent;
+  border-color: transparent;
+}
+.icon {
+  width: 30px;
+}
+.opticon {
+  width: 10px;
+  height: 10px;
+}
+.optbut {
+  border-radius: 0%;
+  border-color: gray;
+  border-style: solid;
+  border-width: 1px;
+}
+.pageNavBut {
+  border-radius: 0;
+  border-width: 1px;
+  background-color: white;
+}
+.navButDiv {
+  text-align: center;
+  margin: 30px;
+}
+.tableDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.dayMonthDiv {
+  margin: 30px;
+}
+.dayMonthBut {
+  border-radius: 0;
+  border-width: 1px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: transparent;
+  margin: 5px;
+}
+
+.task {
+  border: 1px solid black;
+  border-radius: 10%;
+  width: 90%;
+  box-shadow: 1px 1px 5px #888888;
+  display: flex;
+  justify-content: space-between;
+  padding: 4px;
+  margin: 4px;
+}
+
+.tasksDiv {
+  border: 1px solid black;
+  height: 300px;
+  width: 25%;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  min-width: 150px;
+}
+
+.taskHeader {
+  border: 1px solid black;
+  text-align: center;
+  padding: 3px;
+}
+
+.taskList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#taskMain {
+  display: flex;
+  flex-wrap: wrap;
+}
+.transparentBut {
+  border-color: transparent;
+  background-color: transparent;
+}
+.taskContent {
+  display: flex;
+  flex-direction: column;
+  height: 83%;
+  justify-content: space-between;
+}
+
+.infoPart {
+  border: 1px solid black;
+  height: 200px;
+  width: 300px;
+  margin: 10px;
+}
+
+.infoAside {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+}
+
+.hInfo {
+  padding-left: 10px;
+}
+.preInfo {
+  margin: 10px;
+}
+.dashboardDiv {
+  display: flex;
+}
+
+.mainNav {
+  width: 20%;
+}
+.menu-button {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border-color: transparent;
+  background-color: transparent;
+}
+#notification {
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  top: 1;
+  right: 5px;
+  width: 12px;
+  height: 12px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.iconButt {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
