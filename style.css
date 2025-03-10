@@ -18,6 +18,9 @@ body {
   .name {
     display: none;
   }
+  .userModalWindow {
+    right: 0px;
+  }
 }
 /*Планшети*/
 @media screen and (min-width: 480px) {
@@ -31,6 +34,9 @@ body {
     }
     .name {
       display: block;
+    }
+    .userModalWindow {
+      right: 50px;
     }
   }
 }
@@ -90,12 +96,16 @@ a:link {
 a:hover {
   text-decoration: underline;
 }
+
 .iconButt {
   background-color: transparent;
   border-color: transparent;
 }
 .icon {
   width: 30px;
+}
+.iconSmall {
+  width: 20px;
 }
 .opticon {
   width: 10px;
@@ -224,9 +234,114 @@ a:hover {
   width: 12px;
   height: 12px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  display: none;
 }
 .iconButt {
   position: relative;
   display: inline-block;
   cursor: pointer;
+}
+.messagesPreview {
+  background-color: white;
+  border: 1px solid black;
+  width: 30%;
+  position: absolute;
+  top: 1;
+  right: 5px;
+  display: none;
+  flex-direction: column;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.messageLine {
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.messagesImg {
+  height: 2.5em;
+  width: 9.5em;
+}
+
+.bubble {
+  background-color: #888888;
+  width: 10em;
+  height: 2em;
+  border-radius: 20%;
+}
+.userModalWindow {
+  background-color: white;
+  width: 70px;
+  position: absolute;
+  border: 1px solid black;
+  top: 1;
+  right: 50px;
+  display: none;
+}
+#userphoto {
+  cursor: pointer;
+}
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(-15deg);
+  }
+  30% {
+    transform: rotate(15deg);
+  }
+  45% {
+    transform: rotate(-10deg);
+  }
+  60% {
+    transform: rotate(10deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.shaking {
+  animation: shake 0.6s ease-in-out;
+}
+header {
+  position: relative;
+}
+.modalHead {
+  display: flex;
+  justify-content: space-between;
+}
+.addEditModalWindow {
+  width: 80%;
+  border: 1px solid black;
+  border-radius: 10%;
+  position: relative;
+}
+.modal {
+  display: none;
+  justify-content: center;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 60%;
+}
+.navModal {
+  border: 1px solid black;
+  width: 200px;
+  font-size: 15px;
+  z-index: 2;
+  display: none;
+  position: absolute;
+  z-index: 1000;
+  background-color: white;
 }
