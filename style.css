@@ -111,12 +111,14 @@ a:hover {
   width: 10px;
   height: 10px;
 }
-.optbut {
+.editBut,
+.delBut {
   border-radius: 0%;
   border-color: gray;
   border-style: solid;
   border-width: 1px;
 }
+
 .pageNavBut {
   border-radius: 0;
   border-width: 1px;
@@ -320,6 +322,8 @@ header {
 .modalHead {
   display: flex;
   justify-content: space-between;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 .addEditModalWindow {
   width: 80%;
@@ -328,12 +332,13 @@ header {
   position: relative;
 }
 .modal {
+  background-color: white;
   display: none;
   justify-content: center;
   position: fixed;
   z-index: 1;
   width: 100%;
-  height: 60%;
+  height: 55%;
 }
 .navModal {
   border: 1px solid black;
@@ -344,4 +349,17 @@ header {
   position: absolute;
   z-index: 1000;
   background-color: white;
+}
+.conentLine {
+  margin: 30px;
+  font-size: 20px;
+}
+.modalFooter {
+  display: flex;
+
+  justify-content: end;
+}
+.modalFooterButton {
+  margin-right: 15px;
+  margin-top: 10px;
 }

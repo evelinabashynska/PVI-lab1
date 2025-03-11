@@ -51,7 +51,7 @@
 
        </div>
 
-       <div class="userModalWindow" id="userModalWindow" >
+       <div class="userModalWindow" id="userModalWindow">
         <ul style="list-style: none; padding: 1px; margin: 7px; font-size: 15px;">
           <li>Profile</li>
           <li>Log out</li>
@@ -89,14 +89,64 @@
 
     <main>
       <h1>Students</h1>
+      
+      <div class="modal" id="addEditModal">
+        <div class="addEditModalWindow">
+          <div class="modalHead">
+            <h2 id="headerText">Add Student</h2>
+            <button onclick="closeModalWindow()" style="height: 30px; width: 30px; margin-top: 20px;">x</button>
+          </div>
+          <hr>
+          <div class="modalContent">
+            <div class="conentLine">
+            <label for="group">Group</label>
+<select name="Group" id="group">
+  <option value="">Select group</option>
+<option value="PZ-11">PZ-11</option>
+<option value="PZ-12">PZ-12</option>
+<option value="PZ-13">PZ-13</option>
+<option value="PZ-14">PZ-14</option>
+<option value="PZ-15">PZ-15</option>
+<option value="PZ-16">PZ-16</option>
+</select>
+</div>
+<div class="conentLine">
+<label for="firstName">First name</label>
+<input type="text" id="firstName">
+</div>
+<div class="conentLine">
+<label for="lastName">Last name</label>
+<input type="text" id="lastName">
+</div>
+<div class="conentLine">
+<label for="gender">Gender</label>
+<select name="Gender" id="gender">
+  <option value="">Select gender</option>
+  <option value="male">Male</option>
+  <option value="female">Female</option>
+</select>
+</div>
+  <div class="conentLine">
+  <label for="birthday">Birthday</label>
+  <input type="date" id="birthday">
+  </div>
+  <hr>
+
+          </div>
+          <div class="modalFooter">
+            <button class="modalFooterButton" id="okBut">Ok</button>
+            <button class="modalFooterButton" id="createBut">Create</button>
+              </div>
+        </div>
+      </div>
 
       <div class="tableDiv">
       
-        <button id="addButton" onclick="showAddEditWindow()" style="margin-bottom: 10px;">+</button>
+        <button id="addButton" onclick="openModalWindow()" style="margin-bottom: 10px;">+</button>
       
-      <table>
+      <table id="mainTable">
         <tr>
-            <th><input type="checkbox"></th>
+            <th><input type="checkbox" id="selectAll"></th>
             <th>Group</th>
             <th>Name</th>
             <th>Gender</th>
@@ -105,7 +155,7 @@
             <th>Options</th>
         </tr>
         <tr>
-            <td><input type="checkbox"></td>
+            <td><input type="checkbox" class="rowCheckbox"></td>
             <td>KN-21</td>
             <td>John Smith</td>
             <td>M</td>
@@ -116,13 +166,13 @@
                 </svg>
             </td>
             <td>
-              <button class="optbut"><img class="opticon" src="pencil.png" alt="Pencil"></button>
-              <button class="optbut"><img class="opticon" src="trash.png" alt="Trash"></button>
+              <button class="editBut"><img class="opticon" src="pencil.png" alt="Pencil"></button>
+              <button class="delBut"><img class="opticon" src="trash.png" alt="Trash"></button>
             </td>
 
         </tr>
         <tr>
-            <td><input type="checkbox"></td>
+            <td><input type="checkbox" class="rowCheckbox"></td>
             <td>KN-22</td>
             <td>Ann Bond</td>
             <td>F</td>
@@ -133,33 +183,15 @@
               </svg>
           </td>
           <td>
-            <button class="optbut"><img class="opticon" src="pencil.png" alt="Pencil"></button>
-            <button class="optbut"><img class="opticon" src="trash.png" alt="Trash"></button>
+            <button class="editBut"><img class="opticon" src="pencil.png" alt="Pencil"></button>
+            <button class="delBut"><img class="opticon" src="trash.png" alt="Trash"></button>
           </td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
         </tr>
 
       </table>
     </div>
-      <div class="modal">
-    
+      
+
       <div class="navButDiv">
 <nav>
   <button class="pageNavBut">&lt;</button>
