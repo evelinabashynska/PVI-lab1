@@ -252,31 +252,24 @@ a:hover {
   right: 5px;
   display: none;
   flex-direction: column;
+  z-index: 2;
 }
 
 .userInfo {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 70px;
 }
 
 .messageLine {
+  align-items: center;
+  gap: 10px;
   margin: 5px;
   display: flex;
   justify-content: space-between;
 }
 
-.messagesImg {
-  height: 2.5em;
-  width: 9.5em;
-}
-
-.bubble {
-  background-color: #888888;
-  width: 10em;
-  height: 2em;
-  border-radius: 20%;
-}
 .userModalWindow {
   background-color: white;
   width: 70px;
@@ -362,4 +355,80 @@ header {
 .modalFooterButton {
   margin-right: 15px;
   margin-top: 10px;
+}
+.delModal {
+  background-color: white;
+  display: none;
+  justify-content: center;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  height: 55%;
+}
+.delModalWindow {
+  width: 80%;
+  border: 1px solid black;
+  border-radius: 10%;
+  position: relative;
+}
+.delModalMain {
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.exitBut {
+  height: 30px;
+  width: 30px;
+  margin-top: 20px;
+}
+
+#bellIcon:hover + #messagesPreview,
+#messagesPreview:hover {
+  display: flex;
+}
+#userphoto:hover ~ #userModalWindow,
+#userModalWindow:hover {
+  display: flex;
+}
+#question {
+  text-align: center;
+}
+
+.editBut:hover,
+.delBut:hover {
+  background-color: darkgray;
+  cursor: pointer;
+}
+#addButton:hover {
+  cursor: pointer;
+}
+
+.chat-bubble {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: gray;
+  color: white;
+  width: 150px; /* Фіксована ширина */
+  height: 10px; /* Фіксована висота */
+  border-radius: 25px;
+  font-size: 16px;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Стрілка */
+.chat-bubble::before {
+  content: "";
+  position: absolute;
+  left: -8px; /* Вирівнюємо стрілку зліва */
+  top: 40%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 15px 10px 0;
+  border-color: transparent gray transparent transparent;
 }

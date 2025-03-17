@@ -20,9 +20,9 @@
       style="color: white; float: right; padding-right: 10px"
       >James Bond</label
     >
-        <input class=icon type="image" onmouseenter="showModalUser()" onmouseleave="hideModalUser()" id="userphoto" src="./user.png" alt="User photo" style="float: right;">
+        <input class=icon type="image" id="userphoto" src="./user.png" alt="User photo" style="float: right;">
      
-        <button onclick="hideCircle()" onmouseenter="showModalMessages()" onmouseleave="hideModalMessages()" class="iconButt" style="float: right;"><img class =icon id="bellIcon" src="./bell.png" alt="Bell"><span id="notification"></span></button>
+        <button onclick="hideCircle()" class="iconButt" id="bellIcon" style="float: right;"><img class =icon src="./bell.png" alt="Bell"><span id="notification"></span></button>
        <div class="messagesPreview" id="messagesPreview" >
 
   <div class="messageLine">
@@ -32,7 +32,9 @@
         <span>Admin</span>
         
         </div>
-        <div class="bubble"></div>
+        <div class="chat-bubble">
+          Текст
+        </div>
     
   </div>
 
@@ -43,7 +45,9 @@
       <span>Lucy</span>
       
       </div>
-      <div class="bubble"></div>
+      <div class="chat-bubble">
+        Текст
+      </div>
   
 </div>
 
@@ -94,7 +98,7 @@
         <div class="addEditModalWindow">
           <div class="modalHead">
             <h2 id="headerText">Add Student</h2>
-            <button onclick="closeModalWindow()" style="height: 30px; width: 30px; margin-top: 20px;">x</button>
+            <button class="exitBut" id="addEditExitBut">x</button>
           </div>
           <hr>
           <div class="modalContent">
@@ -139,10 +143,26 @@
               </div>
         </div>
       </div>
-
+      <div class="delModal" id="delModal">
+        <div class="delModalWindow">
+          <div class="modalHead">
+            <h2 id="headerText">Warning</h2>
+            <button id="delExit" class="exitBut">x</button>
+          </div>
+          <hr>
+          <div class="delModalMain">
+          <h2 id="question">Are you sure you want to delete user</h2>
+        </div>
+        <hr>
+        <div class="modalFooter">
+          <button class="modalFooterButton" id="delCancelButton">Cancel</button>
+          <button class="modalFooterButton" id="delOkButton">Ok</button>
+        </div>
+        </div>
+      </div>
       <div class="tableDiv">
       
-        <button id="addButton" onclick="openModalWindow()" style="margin-bottom: 10px;">+</button>
+        <button id="addButton" style="margin-bottom: 10px;">+</button>
       
       <table id="mainTable">
         <tr>
@@ -154,10 +174,10 @@
             <th>Status</th>
             <th>Options</th>
         </tr>
-        <tr>
+        <tr class="rows">
             <td><input type="checkbox" class="rowCheckbox"></td>
             <td>KN-21</td>
-            <td>John Smith</td>
+            <td class="username">John Smith</td>
             <td>M</td>
             <td>11.05.2004</td>
             <td>
@@ -171,10 +191,10 @@
             </td>
 
         </tr>
-        <tr>
+        <tr class="rows">
             <td><input type="checkbox" class="rowCheckbox"></td>
             <td>KN-22</td>
-            <td>Ann Bond</td>
+            <td class="username">Ann Bond</td>
             <td>F</td>
             <td>24.04.2004</td>
             <td>
