@@ -3,16 +3,6 @@ function hideCircle() {
   //window.location.href = "messages.html";
 }
 
-//Функції для малювання хмарки
-function drawCloud(c, ctx) {
-  ctx.beginPath();
-}
-function drawClouds() {
-  let c = document.querySelector(".cloud");
-  let ctx = c.getContext("2d");
-  drawCloud(c, ctx);
-}
-
 //Анімація дзвіночка
 document.addEventListener("DOMContentLoaded", function () {
   const bellIcon = document.getElementById("bellIcon");
