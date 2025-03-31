@@ -456,3 +456,29 @@ function updateStatus(row) {
     }
   }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById("addEditModalWindow");
+  const openModal = document.getElementById("addButton");
+  const closeModal = document.getElementById("addEditExitBut");
+  const body = document.body;
+
+  openModal.addEventListener("click", function () {
+    modal.style.display = "block";
+    body.classList.add("modal-open"); // Додаємо ефект затемнення
+  });
+
+  function closeModalFunc() {
+    modal.style.display = "none";
+    body.classList.remove("modal-open"); // Приховуємо затемнення
+  }
+
+  closeModal.addEventListener("click", closeModalFunc);
+
+  // Закриття при кліку на затемнений фон
+  window.addEventListener("click", function (event) {
+    if (event.target === modal) {
+      closeModalFunc();
+    }
+  });
+});

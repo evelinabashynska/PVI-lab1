@@ -325,19 +325,23 @@ header {
   margin-right: 20px;
 }
 .addEditModalWindow {
+  background-color: white;
   width: 80%;
   border: 1px solid black;
   border-radius: 10%;
   position: relative;
 }
 .modal {
-  background-color: white;
   display: none;
   justify-content: center;
   position: fixed;
   z-index: 1;
   width: 100%;
   height: 55%;
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-duration: 0.4s;
+  animation-name: fadeIn;
+  animation-duration: 0.4s;
 }
 .navModal {
   border: 1px solid black;
@@ -466,4 +470,27 @@ a:visited {
   font-size: 12px;
   display: block;
   margin-top: 5px;
+}
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+body.modal-open {
+  background-color: rgba(0, 0, 0, 0.6); /* Сірий фон */
+  transition: background-color 0.3s ease-in-out;
 }
