@@ -1,3 +1,5 @@
+let studentIdCounter = 3;
+
 function hideCircle() {
   document.getElementById("notification").style.display = "none";
   //window.location.href = "messages.html";
@@ -36,14 +38,68 @@ window.addEventListener("resize", function () {
 
 //Кнопки редагування
 document.addEventListener("DOMContentLoaded", function () {
-  const editButtons = document.getElementsByClassName("editBut");
+  const okBut = document.getElementById("okBut");
+  const createBut = document.getElementById("createBut");
+  createBut.dataset.mode = "edit";
+  okBut.dataset.mode = "edit";
+  let modal = document.getElementById("addEditModal");
+  document
+    .getElementById("mainTable")
+    .addEventListener("click", function (event) {
+      if (event.target.closest(".editBut")) {
+        // Отримуємо всі вибрані рядки
+        selectedRows = Array.from(
+          document.querySelectorAll(".rowCheckbox:checked")
+        ).map((checkbox) => checkbox.closest("tr"));
 
-  for (let i = 0; i < editButtons.length; i++) {
-    editButtons[i].addEventListener("click", function () {
-      document.getElementById("addEditModal").style.display = "flex";
-      document.getElementById("headerText").textContent = "Edit";
+        if (selectedRows.length === 0) {
+          window.alert("Please select at least one user before deleting.");
+          return;
+        }
+
+        if (selectedRows.length === 1) {
+          modal.style.display = "flex";
+          document.getElementById("headerText").textContent = "Edit";
+
+          // Отримуємо дані студента для редагування
+          const selectedRow = selectedRows[0];
+          let group = selectedRow.cells[1].textContent.trim();
+
+          const fullName = selectedRow.cells[2].textContent; // Ім'я та прізвище разом
+          const [name, surname] = fullName.split(" "); // Розділяємо на ім'я та прізвище
+          let genderText = selectedRow.cells[3].textContent.trim();
+          let birthdayText = selectedRow.cells[4].textContent.trim();
+          let groupSelect = document.getElementById("group");
+
+          // Заповнюємо форму для редагування
+          // Перевіряємо, чи є така група в списку
+          let groupExists = Array.from(groupSelect.options).some(
+            (option) => option.value === group
+          );
+
+          // Заповнюємо форму для редагування
+          groupSelect.value = groupExists ? group : "";
+          document.getElementById("group").value = groupExists ? group : "";
+          document.getElementById("firstName").value = name;
+          document.getElementById("lastName").value = surname;
+          document.getElementById("gender").value =
+            genderText === "M" ? "male" : "female";
+          // Форматування дати народження в формат YYYY-MM-DD
+          let birthdayParts = birthdayText.split(".");
+          let birthdayFormatted = `${birthdayParts[2]}-${birthdayParts[1]}-${birthdayParts[0]}`;
+
+          // Записуємо дату народження в поле
+          document.getElementById("birthday").value = birthdayFormatted;
+
+          // Зберігаємо інформацію про вибраний рядок для подальшого редагування
+          document.getElementById("studentId").value =
+            selectedRow.getAttribute("data-id");
+        } else {
+          window.alert("Please select only one student to edit.");
+          return;
+        }
+      }
     });
-  }
 });
 
 //Обробка додавання
@@ -52,11 +108,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const okBut = document.getElementById("okBut");
   const createBut = document.getElementById("createBut");
   const table = document.getElementById("mainTable");
+  createBut.dataset.mode = "create";
+  okBut.dataset.mode = "create";
 
   //Кнопка відкриття вікна
   addButton = document.getElementById("addButton");
   addButton.addEventListener("click", function () {
     modal.style.display = "flex";
+    document.getElementById("headerText").textContent = "Add student";
+    document.getElementById("group").value = "";
+    document.getElementById("firstName").value = "";
+    document.getElementById("lastName").value = "";
+    document.getElementById("gender").value = "";
+    document.getElementById("birthday").value = "";
+    document.getElementById("studentId").value = "";
   });
   //Кнопка закриття вікна
   exitButton = document.getElementById("addEditExitBut");
@@ -67,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
   //Отримання вхідних значень
   function getInputValues() {
     return {
+      id: document.getElementById("studentId").value || null,
       group: document.getElementById("group").value,
       firstName: document.getElementById("firstName").value.trim(),
       lastName: document.getElementById("lastName").value.trim(),
@@ -79,15 +145,20 @@ document.addEventListener("DOMContentLoaded", function () {
   function addNewRow(values) {
     let newRow = document.createElement("tr");
     newRow.classList.add("rows");
+    let studentId = studentIdCounter++;
+    let formattedBirthday = values.birthday.split("-").reverse().join(".");
+    // Зберігаю ID у data-атрибуті
+    newRow.setAttribute("data-id", studentId);
 
     newRow.innerHTML = `
       <td>
-        <input type="checkbox"></input>
+        <input type="checkbox" class="rowCheckbox"
+                aria-label="Select one"></input>
       </td>
       <td>${values.group}</td>
       <td class="username">${values.firstName} ${values.lastName}</td>
   <td>${values.gender == "male" ? "M" : "F"}</td>
-  <td>${values.birthday}</td>
+  <td>${formattedBirthday}</td>
      <td>
         <svg width="20px" height="20px">
           <circle cx="10" cy="10" r="5" stroke="none" fill="${
@@ -103,34 +174,39 @@ document.addEventListener("DOMContentLoaded", function () {
     table.appendChild(newRow);
     updateStatus(newRow);
   }
-  //Кнопка Ok
   function okClick() {
+    let mode = this.dataset.mode;
     let values = getInputValues();
-    if (
-      values.group &&
-      values.firstName &&
-      values.lastName &&
-      values.gender &&
-      values.birthday
-    ) {
+
+    if (values.id) {
+      // Якщо є ID – редагуємо існуючий рядок
+      updateRow(values);
+    } else {
+      // Якщо ID немає – створюємо новий рядок
       addNewRow(values);
     }
     modal.style.display = "none";
   }
-  //Кнопка Create
+
   function createClick() {
+    let mode = this.dataset.mode;
     let values = getInputValues();
-    if (
-      values.group &&
-      values.firstName &&
-      values.lastName &&
-      values.gender &&
-      values.birthday
-    ) {
-      addNewRow(values);
-      modal.style.display = "none";
+
+    if (values.id) {
+      updateRow(values);
     } else {
-      alert("Не усі поля заповнені");
+      addNewRow(values);
+    }
+    modal.style.display = "none";
+  }
+
+  function updateRow(values) {
+    let row = document.querySelector(`tr[data-id="${values.id}"]`);
+    if (row) {
+      row.cells[1].textContent = values.group;
+      row.cells[2].textContent = `${values.firstName} ${values.lastName}`;
+      row.cells[3].textContent = values.gender === "male" ? "M" : "F";
+      row.cells[4].textContent = values.birthday.split("-").reverse().join(".");
     }
   }
   okBut.addEventListener("click", okClick);

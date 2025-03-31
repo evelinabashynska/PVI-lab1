@@ -108,6 +108,7 @@
           </div>
           <hr />
           <div class="modalContent">
+            <input type="hidden" id="studentId" />
             <div class="conentLine">
               <label for="group">Group</label>
               <select name="Group" id="group">
@@ -183,7 +184,7 @@
             <th>Status</th>
             <th>Options</th>
           </tr>
-          <tr class="rows">
+          <tr class="rows" data-id="1">
             <td>
               <input
                 type="checkbox"
@@ -191,7 +192,7 @@
                 aria-label="Select one"
               />
             </td>
-            <td>KN-21</td>
+            <td>PZ-11</td>
             <td class="username">John Smith</td>
             <td>M</td>
             <td>11.05.2004</td>
@@ -215,7 +216,7 @@
               </button>
             </td>
           </tr>
-          <tr class="rows">
+          <tr class="rows" data-id="2">
             <td>
               <input
                 type="checkbox"
@@ -223,7 +224,7 @@
                 aria-label="Select one"
               />
             </td>
-            <td>KN-22</td>
+            <td>PZ-12</td>
             <td class="username">Ann Bond</td>
             <td>F</td>
             <td>24.04.2004</td>
