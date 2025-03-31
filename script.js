@@ -108,6 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const okBut = document.getElementById("okBut");
   const createBut = document.getElementById("createBut");
   const table = document.getElementById("mainTable");
+  let form = document.getElementById("studentForm");
   createBut.dataset.mode = "create";
   okBut.dataset.mode = "create";
 
@@ -174,31 +175,170 @@ document.addEventListener("DOMContentLoaded", function () {
     table.appendChild(newRow);
     updateStatus(newRow);
   }
+  function validateForm() {
+    let isValid = true;
+
+    function validateField(id, regex, errorMessage) {
+      let input = document.getElementById(id);
+      let value = input.value.trim();
+
+      if (!regex.test(value)) {
+        input.classList.add("error");
+        showError(input, errorMessage);
+        isValid = false;
+      } else {
+        input.classList.remove("error");
+        hideError(input);
+      }
+    }
+
+    validateField(
+      "firstName",
+      /^[A-Za-z]+$/,
+      "Ім'я може містити лише англійські літери!"
+    );
+    validateField(
+      "lastName",
+      /^[A-Za-z]+$/,
+      "Прізвище може містити лише англійські літери!"
+    );
+
+    let group = document.getElementById("group");
+    if (!group.value) {
+      group.classList.add("error");
+      showError(group, "Оберіть групу!");
+      isValid = false;
+    } else {
+      group.classList.remove("error");
+      hideError(group);
+    }
+
+    let gender = document.getElementById("gender");
+    if (!gender.value) {
+      gender.classList.add("error");
+      showError(gender, "Оберіть стать!");
+      isValid = false;
+    } else {
+      gender.classList.remove("error");
+      hideError(gender);
+    }
+
+    let birthday = document.getElementById("birthday");
+    let birthDate = new Date(birthday.value);
+    let minDate = new Date("1900-01-01");
+    let maxDate = new Date();
+
+    if (birthday.value === "" || birthDate < minDate || birthDate > maxDate) {
+      birthday.classList.add("error");
+      showError(
+        birthday,
+        "Дата народження має бути від 01.01.1900 до сьогодні!"
+      );
+      isValid = false;
+    } else {
+      birthday.classList.remove("error");
+      hideError(birthday);
+    }
+
+    return isValid;
+  }
+
+  // Функція для показу помилки
+  function showError(input, message) {
+    let error = input.nextElementSibling;
+    if (!error || !error.classList.contains("error-text")) {
+      error = document.createElement("span");
+      error.classList.add("error-text");
+      input.parentNode.appendChild(error);
+    }
+    error.textContent = message;
+  }
+
+  // Функція для приховання помилки
+  function hideError(input) {
+    let error = input.nextElementSibling;
+    if (error && error.classList.contains("error-text")) {
+      error.remove();
+    }
+  }
+  /*
   function okClick() {
+    event.preventDefault();
+    let mode = this.dataset.mode;
+    let values = getInputValues();
+    if (values.id) {
+      // Якщо є ID – редагуємо існуючий рядок
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      updateRow(values);
+    } else {
+      // Якщо ID немає – створюємо новий рядок
+      /*
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+ event.preventDefault(); // Вимикаємо стандартне відправлення
+      validateForm();
+      addNewRow(values);
+    }
+    modal.style.display = "none";
+  }
+*/
+  function okClick() {
+    event.preventDefault();
+    let values = getInputValues();
+
+    if (validateForm()) {
+      if (values.id) {
+        updateRow(values);
+      } else {
+        addNewRow(values);
+      }
+      modal.style.display = "none";
+    }
+  }
+  function createClick() {
+    event.preventDefault();
+    let values = getInputValues();
+
+    if (validateForm()) {
+      if (values.id) {
+        updateRow(values);
+      } else {
+        addNewRow(values);
+      }
+      modal.style.display = "none";
+    }
+  }
+  /*
+  function createClick() {
+    event.preventDefault();
     let mode = this.dataset.mode;
     let values = getInputValues();
 
     if (values.id) {
       // Якщо є ID – редагуємо існуючий рядок
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
       updateRow(values);
     } else {
       // Якщо ID немає – створюємо новий рядок
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
       addNewRow(values);
     }
     modal.style.display = "none";
   }
-
-  function createClick() {
-    let mode = this.dataset.mode;
-    let values = getInputValues();
-
-    if (values.id) {
-      updateRow(values);
-    } else {
-      addNewRow(values);
-    }
-    modal.style.display = "none";
-  }
+*/
 
   function updateRow(values) {
     let row = document.querySelector(`tr[data-id="${values.id}"]`);
@@ -221,6 +361,7 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log(JSON.stringify(studentData, null, 2));
     }
   }
+
   okBut.addEventListener("click", okClick);
   createBut.addEventListener("click", createClick);
 });

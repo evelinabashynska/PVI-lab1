@@ -102,51 +102,75 @@
 
       <div class="modal" id="addEditModal">
         <div class="addEditModalWindow">
-          <div class="modalHead">
-            <h2 id="headerText">Add Student</h2>
-            <button class="exitBut" id="addEditExitBut">x</button>
-          </div>
-          <hr />
-          <div class="modalContent">
-            <input type="hidden" id="studentId" />
-            <div class="conentLine">
-              <label for="group">Group</label>
-              <select name="Group" id="group">
-                <option value="">Select group</option>
-                <option value="PZ-11">PZ-11</option>
-                <option value="PZ-12">PZ-12</option>
-                <option value="PZ-13">PZ-13</option>
-                <option value="PZ-14">PZ-14</option>
-                <option value="PZ-15">PZ-15</option>
-                <option value="PZ-16">PZ-16</option>
-              </select>
-            </div>
-            <div class="conentLine">
-              <label for="firstName">First name</label>
-              <input type="text" id="firstName" />
-            </div>
-            <div class="conentLine">
-              <label for="lastName">Last name</label>
-              <input type="text" id="lastName" />
-            </div>
-            <div class="conentLine">
-              <label for="gender">Gender</label>
-              <select name="Gender" id="gender">
-                <option value="">Select gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-              </select>
-            </div>
-            <div class="conentLine">
-              <label for="birthday">Birthday</label>
-              <input type="date" id="birthday" />
+          <form id="studentForm" novalidate>
+            <div class="modalHead">
+              <h2 id="headerText">Add Student</h2>
+              <button class="exitBut" id="addEditExitBut">x</button>
             </div>
             <hr />
-          </div>
-          <div class="modalFooter">
-            <button class="modalFooterButton" id="okBut">Ok</button>
-            <button class="modalFooterButton" id="createBut">Create</button>
-          </div>
+            <div class="modalContent">
+              <input type="hidden" id="studentId" />
+              <div class="conentLine">
+                <label for="group">Group</label>
+                <select name="Group" id="group" required>
+                  <option value="" disabled selected>Select group</option>
+                  <option value="PZ-11">PZ-11</option>
+                  <option value="PZ-12">PZ-12</option>
+                  <option value="PZ-13">PZ-13</option>
+                  <option value="PZ-14">PZ-14</option>
+                  <option value="PZ-15">PZ-15</option>
+                  <option value="PZ-16">PZ-16</option>
+                </select>
+              </div>
+              <div class="conentLine">
+                <label for="firstName">First name</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  required
+                  pattern="[A-Za-z]+"
+                  title="Only english letters"
+                />
+              </div>
+              <div class="conentLine">
+                <label for="lastName">Last name</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  required
+                  pattern="[A-Za-z]+"
+                  title="Only english letters"
+                />
+              </div>
+              <div class="conentLine">
+                <label for="gender">Gender</label>
+                <select name="Gender" id="gender" required>
+                  <option value="" disabled selected>Select gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
+              <div class="conentLine">
+                <label for="birthday">Birthday</label>
+                <input
+                  type="date"
+                  id="birthday"
+                  min="1900-01-01"
+                  max="2025-03-31"
+                  required
+                />
+              </div>
+              <hr />
+            </div>
+            <div class="modalFooter">
+              <button class="modalFooterButton" type="submit" id="okBut">
+                Ok
+              </button>
+              <button class="modalFooterButton" type="submit" id="createBut">
+                Create
+              </button>
+            </div>
+          </form>
         </div>
       </div>
       <div class="delModal" id="delModal">

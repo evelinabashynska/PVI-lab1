@@ -455,3 +455,15 @@ a:visited {
   white-space: nowrap;
   border: 0;
 }
+
+.error {
+  border: 2px solid red;
+  background-color: #ffe6e6;
+}
+
+.error-text {
+  color: red;
+  font-size: 12px;
+  display: block;
+  margin-top: 5px;
+}
