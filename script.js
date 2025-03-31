@@ -207,6 +207,18 @@ document.addEventListener("DOMContentLoaded", function () {
       row.cells[2].textContent = `${values.firstName} ${values.lastName}`;
       row.cells[3].textContent = values.gender === "male" ? "M" : "F";
       row.cells[4].textContent = values.birthday.split("-").reverse().join(".");
+
+      // Виводжу змінені дані у консоль у форматі JSON
+      let studentData = {
+        id: values.id,
+        group: values.group,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        gender: values.gender,
+        birthday: values.birthday.split("-").reverse().join("."),
+        status: "active",
+      };
+      console.log(JSON.stringify(studentData, null, 2));
     }
   }
   okBut.addEventListener("click", okClick);
