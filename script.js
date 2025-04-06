@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (selectedRows.length === 1) {
           modal.style.display = "flex";
           document.getElementById("headerText").textContent = "Edit";
-
+          document.getElementById("createBut").innerText = "Change";
           // Отримуємо дані студента для редагування
           const selectedRow = selectedRows[0];
           let group = selectedRow.cells[1].textContent.trim();
@@ -172,6 +172,18 @@ document.addEventListener("DOMContentLoaded", function () {
         <button class="delBut"><img class="opticon" src="trash.png" alt="Trash"></button>
       </td>
     `;
+    // Виводжу змінені дані у консоль у форматі JSON
+    let studentData = {
+      id: values.id,
+      group: values.group,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      gender: values.gender,
+      birthday: values.birthday.split("-").reverse().join("."),
+      status: "active",
+    };
+    console.log(JSON.stringify(studentData, null, 2));
+
     table.appendChild(newRow);
     updateStatus(newRow);
   }
@@ -194,13 +206,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     validateField(
       "firstName",
-      /^[A-Za-z]+$/,
-      "Ім'я може містити лише англійські літери!"
+      /^[A-Za-z'-]+$/,
+      "Ім'я може містити лише англійські літери, апострофи та дефіси!"
     );
     validateField(
       "lastName",
-      /^[A-Za-z]+$/,
-      "Прізвище може містити лише англійські літери!"
+      /^[A-Za-z'-]+$/,
+      "Прізвище може містити лише англійські літери, апострофи та дефіси!"
     );
 
     let group = document.getElementById("group");
@@ -299,6 +311,7 @@ document.addEventListener("DOMContentLoaded", function () {
         addNewRow(values);
       }
       modal.style.display = "none";
+      //body.classList.remove("modal-open");
     }
   }
   function createClick() {
@@ -312,6 +325,7 @@ document.addEventListener("DOMContentLoaded", function () {
         addNewRow(values);
       }
       modal.style.display = "none";
+      // body.classList.remove("modal-open");
     }
   }
   /*
@@ -421,6 +435,7 @@ document.addEventListener("DOMContentLoaded", function () {
   okBut.addEventListener("click", function () {
     selectedRows.forEach((row) => row.remove());
     modal.style.display = "none";
+
     selectedRows = [];
   });
 });
@@ -477,8 +492,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Закриття при кліку на затемнений фон
   window.addEventListener("click", function (event) {
-    if (event.target === modal) {
+    if (!event.target.closest(".modal-content")) {
       closeModalFunc();
     }
   });
 });
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker
+    .register("/sw.js")
+    .then(() => console.log("Service Worker registered"))
+    .catch((err) => console.error("Service Worker registration failed", err));
+}
