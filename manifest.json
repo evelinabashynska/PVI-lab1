@@ -12,49 +12,49 @@
 
   "icons": [
     {
-      "src": "./user.png",
+      "src": "./images/user.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "./trash.png",
+      "src": "./images/trash.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "./reindeer.png",
+      "src": "./images/reindeer.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "./pencil.png",
+      "src": "./images/pencil.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "./bell.png",
+      "src": "./images/bell.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "./menu.png",
+      "src": "./images/menu.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
   "screenshots": [
     {
-      "src": "./screenshot1.png",
+      "src": "./images/screenshot1.png",
       "sizes": "1146x1230",
       "type": "image/png"
     },
     {
-      "src": "./screenshot2.png",
+      "src": "./images/screenshot2.png",
       "sizes": "1150x1047",
       "type": "image/png"
     },
     {
-      "src": "./screenshot3.png",
+      "src": "./images/screenshot3.png",
       "sizes": "2560x1235",
       "type": "image/png",
       "form_factor": "wide"
