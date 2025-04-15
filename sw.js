@@ -16,6 +16,11 @@ const ASSETS = [
   "./images/screenshot1.png",
   "./images/screenshot2.png",
   "./images/screenshot3.png",
+  "./api/auth.php",
+  "./api/students.php",
+  "./models/Student.php",
+  "./utils/validation.php",
+  "./index.php",
 ];
 
 self.addEventListener("install", (event) => {
@@ -25,8 +30,19 @@ self.addEventListener("install", (event) => {
     })
   );
 });
+
 self.addEventListener("fetch", (event) => {
   const url = event.request.url;
+  const isApiAuthPost =
+    event.request.method === "POST" && url.includes("/api/auth.php");
+  const isApiStudentsPost =
+    event.request.method === "POST" && url.includes("/api/students.php");
+  const isApiGet = event.request.method === "GET" && url.includes("/api/");
+
+  // Пропускаємо POST-запити до /api/auth.php та /api/students.php, а також всі GET-запити до /api/
+  if (isApiAuthPost || isApiStudentsPost || isApiGet) {
+    return; // Дозволяємо цим запитам йти безпосередньо на сервер
+  }
 
   if (!url.startsWith("http") || url.startsWith("chrome-extension")) {
     console.warn("SW: Пропускаю запит", url);
