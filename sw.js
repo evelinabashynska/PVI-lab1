@@ -16,6 +16,13 @@ const ASSETS = [
   "./images/screenshot1.png",
   "./images/screenshot2.png",
   "./images/screenshot3.png",
+  "/index.php",
+  "/config/database.php",
+  "/controllers/AuthController.php",
+  "/controllers/StudentController.php",
+  "/models/StudentModel.php",
+  "/models/UserModel.php",
+  "/views/auth/login_form.php",
 ];
 
 self.addEventListener("install", (event) => {

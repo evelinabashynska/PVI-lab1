@@ -100,7 +100,7 @@
 
     <main>
       <h1>Students</h1>
-      <div class="modal" id="addEditModal">
+      <div class="modal" id="addEditModal" style="display: none">
         <div class="addEditModalWindow" id="addEditModalWindow">
           <form id="studentForm" novalidate>
             <div class="modalHead">
@@ -109,7 +109,7 @@
             </div>
             <hr />
             <div class="modalContent">
-              <input type="hidden" id="studentId" />
+              <input type="hidden" id="studentId" name="studentId" />
               <div class="conentLine">
                 <label for="group">Group</label>
                 <select name="Group" id="group" required>
@@ -121,26 +121,31 @@
                   <option value="PZ-15">PZ-15</option>
                   <option value="PZ-16">PZ-16</option>
                 </select>
+                <div class="error-message" id="Group-error"></div>
               </div>
               <div class="conentLine">
                 <label for="firstName">First name</label>
                 <input
                   type="text"
                   id="firstName"
+                  name="firstName"
                   required
                   pattern="[A-Za-z]+"
                   title="Only english letters"
                 />
+                <div class="error-message" id="firstName-error"></div>
               </div>
               <div class="conentLine">
                 <label for="lastName">Last name</label>
                 <input
                   type="text"
                   id="lastName"
+                  name="lastName"
                   required
                   pattern="[A-Za-z]+"
                   title="Only english letters"
                 />
+                <div class="error-message" id="lastName-error"></div>
               </div>
               <div class="conentLine">
                 <label for="gender">Gender</label>
@@ -149,21 +154,29 @@
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                 </select>
+                <div class="error-message" id="Gender-error"></div>
               </div>
               <div class="conentLine">
                 <label for="birthday">Birthday</label>
                 <input
                   type="date"
                   id="birthday"
+                  name="birthday"
                   min="1900-01-01"
                   max="2025-03-31"
                   required
                 />
+                <div class="error-message" id="birthday-error"></div>
               </div>
               <hr />
             </div>
             <div class="modalFooter">
-              <button class="modalFooterButton" type="submit" id="okBut">
+              <button
+                class="modalFooterButton"
+                type="submit"
+                id="okBut"
+                style="display: none"
+              >
                 Ok
               </button>
               <button class="modalFooterButton" type="submit" id="createBut">
@@ -174,7 +187,7 @@
         </div>
       </div>
 
-      <div class="delModal" id="delModal">
+      <div class="delModal" id="delModal" style="display: none">
         <div class="delModalWindow">
           <div class="modalHead">
             <h2>Warning</h2>
@@ -189,7 +202,9 @@
             <button class="modalFooterButton" id="delCancelButton">
               Cancel
             </button>
-            <button class="modalFooterButton" id="delOkButton">Ok</button>
+            <button class="modalFooterButton" id="delOkButton" data-id="">
+              Ok
+            </button>
           </div>
         </div>
       </div>
@@ -197,89 +212,93 @@
         <button id="addButton" style="margin-bottom: 10px">+</button>
 
         <table id="mainTable">
-          <tr>
-            <th>
-              <span class="sr-only">Select</span>
-              <input type="checkbox" id="selectAll" aria-label="Select All" />
-            </th>
-            <th>Group</th>
-            <th>Name</th>
-            <th>Gender</th>
-            <th>Birthday</th>
-            <th>Status</th>
-            <th>Options</th>
-          </tr>
-          <tr class="rows" data-id="1">
-            <td>
-              <input
-                type="checkbox"
-                class="rowCheckbox"
-                aria-label="Select one"
-              />
-            </td>
-            <td>PZ-11</td>
-            <td class="username">John Smith</td>
-            <td>M</td>
-            <td>11.05.2004</td>
-            <td>
-              <svg width="20px" height="20px">
-                <circle
-                  cx="10"
-                  cy="10"
-                  r="5"
-                  stroke="none"
-                  fill="green"
-                ></circle>
-              </svg>
-            </td>
-            <td>
-              <button class="editBut">
-                <img class="opticon" src="./images/pencil.png" alt="Pencil" />
-              </button>
-              <button class="delBut">
-                <img class="opticon" src="./images/trash.png" alt="Trash" />
-              </button>
-            </td>
-          </tr>
-          <tr class="rows" data-id="2">
-            <td>
-              <input
-                type="checkbox"
-                class="rowCheckbox"
-                aria-label="Select one"
-              />
-            </td>
-            <td>PZ-12</td>
-            <td class="username">Ann Bond</td>
-            <td>F</td>
-            <td>24.04.2004</td>
-            <td>
-              <svg width="20px" height="20px">
-                <circle
-                  cx="10"
-                  cy="10"
-                  r="5"
-                  stroke="none"
-                  fill="gray"
-                ></circle>
-              </svg>
-            </td>
-            <td>
-              <button class="editBut">
-                <img class="opticon" src="./images/pencil.png" alt="Pencil" />
-              </button>
-              <button class="delBut">
-                <img class="opticon" src="./images/trash.png" alt="Trash" />
-              </button>
-            </td>
-          </tr>
+          <thead>
+            <tr>
+              <th>
+                <span class="sr-only">Select</span>
+                <input type="checkbox" id="selectAll" aria-label="Select All" />
+              </th>
+              <th>Group</th>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Birthday</th>
+              <th>Status</th>
+              <th>Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="rows" data-id="1">
+              <td>
+                <input
+                  type="checkbox"
+                  class="rowCheckbox"
+                  aria-label="Select one"
+                />
+              </td>
+              <td>PZ-11</td>
+              <td class="username">John Smith</td>
+              <td>M</td>
+              <td>11.05.2004</td>
+              <td>
+                <svg width="20px" height="20px">
+                  <circle
+                    cx="10"
+                    cy="10"
+                    r="5"
+                    stroke="none"
+                    fill="green"
+                  ></circle>
+                </svg>
+              </td>
+              <td>
+                <button class="editBut" data-id="1">
+                  <img class="opticon" src="./images/pencil.png" alt="Pencil" />
+                </button>
+                <button class="delBut" data-id="1">
+                  <img class="opticon" src="./images/trash.png" alt="Trash" />
+                </button>
+              </td>
+            </tr>
+            <tr class="rows" data-id="2">
+              <td>
+                <input
+                  type="checkbox"
+                  class="rowCheckbox"
+                  aria-label="Select one"
+                />
+              </td>
+              <td>PZ-12</td>
+              <td class="username">Ann Bond</td>
+              <td>F</td>
+              <td>24.04.2004</td>
+              <td>
+                <svg width="20px" height="20px">
+                  <circle
+                    cx="10"
+                    cy="10"
+                    r="5"
+                    stroke="none"
+                    fill="gray"
+                  ></circle>
+                </svg>
+              </td>
+              <td>
+                <button class="editBut" data-id="2">
+                  <img class="opticon" src="./images/pencil.png" alt="Pencil" />
+                </button>
+                <button class="delBut" data-id="2">
+                  <img class="opticon" src="./images/trash.png" alt="Trash" />
+                </button>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
 
       <div class="navButDiv">
         <nav>
           <button class="pageNavBut">&lt;</button>
-          <button class="pageNavBut">1</button>
+          <button class="pageNavBut active">1</button>
           <button class="pageNavBut">2</button>
           <button class="pageNavBut">3</button>
           <button class="pageNavBut">4</button>

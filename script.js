@@ -502,3 +502,281 @@ if ("serviceWorker" in navigator) {
     .then(() => console.log("Service Worker registered"))
     .catch((err) => console.error("Service Worker registration failed", err));
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const mainTableBody = document.querySelector("#mainTable tbody");
+  const addButton = document.getElementById("addButton");
+  const addEditModal = document.getElementById("addEditModal");
+  const addEditModalWindow = document.getElementById("addEditModalWindow");
+  const addEditExitBut = document.getElementById("addEditExitBut");
+  const headerText = document.getElementById("headerText");
+  const studentForm = document.getElementById("studentForm");
+  const studentIdInput = document.getElementById("studentId");
+  const groupInput = document.getElementById("group");
+  const firstNameInput = document.getElementById("firstName");
+  const lastNameInput = document.getElementById("lastName");
+  const genderInput = document.getElementById("gender");
+  const birthdayInput = document.getElementById("birthday");
+  const okBut = document.getElementById("okBut");
+  const createBut = document.getElementById("createBut");
+  const delModal = document.getElementById("delModal");
+  const delExit = document.getElementById("delExit");
+  const delOkButton = document.getElementById("delOkButton");
+  const delCancelButton = document.getElementById("delCancelButton");
+  const navButDiv = document.querySelector(".navButDiv nav");
+
+  let currentPage = 1;
+  let currentEditId = null;
+
+  function loadStudents(page) {
+    fetch(`/students?route=students&action=list&page=${page}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          console.error("Помилка завантаження студентів:", data.error);
+          // Можна показати повідомлення користувачу
+          return;
+        }
+        displayStudents(data.students);
+        displayPagination(data.totalPages, data.currentPage);
+        currentPage = data.currentPage;
+      })
+      .catch((error) =>
+        console.error("Помилка завантаження студентів:", error)
+      );
+  }
+
+  function displayStudents(students) {
+    mainTableBody.innerHTML = "";
+    students.forEach((student) => {
+      const row = mainTableBody.insertRow();
+      row.setAttribute("data-id", student.id);
+
+      const selectCell = row.insertCell();
+      selectCell.innerHTML =
+        '<input type="checkbox" class="rowCheckbox" aria-label="Select one">';
+
+      const groupCell = row.insertCell();
+      groupCell.textContent = student.Group;
+
+      const nameCell = row.insertCell();
+      nameCell.textContent = `${student.firstName} ${student.lastName}`;
+      nameCell.classList.add("username");
+
+      const genderCell = row.insertCell();
+      genderCell.textContent = student.Gender;
+
+      const birthdayCell = row.insertCell();
+      const birthdayDate = new Date(student.Birthday);
+      birthdayCell.textContent = `${birthdayDate.toLocaleDateString("uk-UA")}`;
+
+      const statusCell = row.insertCell();
+      statusCell.innerHTML = `
+              <svg width="20px" height="20px">
+                  <circle cx="10" cy="10" r="5" stroke="none" fill="green"></circle>
+              </svg>
+          `; // Статус поки що статичний
+
+      const optionsCell = row.insertCell();
+      optionsCell.innerHTML = `
+              <button class="editBut" data-id="<span class="math-inline">\{student\.id\}"\>
+<img class\="opticon" src\="\./images/pencil\.png" alt\="Pencil"\>
+</button\>
+<button class\="delBut" data\-id\="</span>{student.id}">
+                  <img class="opticon" src="./images/trash.png" alt="Trash">
+              </button>
+          `;
+    });
+    attachRowListeners(); // Прикріплюємо слухачі для кнопок редагування та видалення
+  }
+
+  function displayPagination(totalPages, currentPage) {
+    navButDiv.innerHTML = "";
+    if (totalPages <= 1) return;
+
+    const prevButton = document.createElement("button");
+    prevButton.classList.add("pageNavBut");
+    prevButton.textContent = "<";
+    prevButton.disabled = currentPage === 1;
+    prevButton.addEventListener("click", () => {
+      if (currentPage > 1) {
+        loadStudents(currentPage - 1);
+      }
+    });
+    navButDiv.appendChild(prevButton);
+
+    for (let i = 1; i <= totalPages; i++) {
+      const pageButton = document.createElement("button");
+      pageButton.classList.add("pageNavBut");
+      pageButton.textContent = i;
+      if (i === currentPage) {
+        pageButton.classList.add("active");
+      }
+      pageButton.addEventListener("click", () => {
+        loadStudents(i);
+      });
+      navButDiv.appendChild(pageButton);
+    }
+
+    const nextButton = document.createElement("button");
+    nextButton.classList.add("pageNavBut");
+    nextButton.textContent = ">";
+    nextButton.disabled = currentPage === totalPages;
+    nextButton.addEventListener("click", () => {
+      if (currentPage < totalPages) {
+        loadStudents(currentPage + 1);
+      }
+    });
+    navButDiv.appendChild(nextButton);
+  }
+
+  function attachRowListeners() {
+    const editButtons = document.querySelectorAll(".editBut");
+    editButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        const studentId = this.getAttribute("data-id");
+        openEditModal(studentId);
+      });
+    });
+
+    const deleteButtons = document.querySelectorAll(".delBut");
+    deleteButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        const studentId = this.getAttribute("data-id");
+        openDeleteModal(studentId);
+      });
+    });
+  }
+
+  function openAddModal() {
+    headerText.textContent = "Add Student";
+    studentIdInput.value = "";
+    groupInput.value = "";
+    firstNameInput.value = "";
+    lastNameInput.value = "";
+    genderInput.value = "";
+    birthdayInput.value = "";
+    okBut.style.display = "none";
+    createBut.style.display = "block";
+    addEditModal.style.display = "block";
+    currentEditId = null;
+    clearValidationErrors();
+  }
+
+  function openEditModal(studentId) {
+    headerText.textContent = "Edit Student";
+    studentIdInput.value = studentId;
+    okBut.style.display = "block";
+    createBut.style.display = "none";
+    addEditModal.style.display = "block";
+    currentEditId = studentId;
+    clearValidationErrors();
+
+    fetch(`/students?route=students&action=edit&id=${studentId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          console.error("Помилка завантаження даних студента:", data.error);
+          // Можна показати повідомлення користувачу
+          return;
+        }
+        if (data.success && data.student) {
+          groupInput.value = data.student.Group;
+          firstNameInput.value = data.student.firstName;
+          lastNameInput.value = data.student.lastName;
+          genderInput.value = data.student.Gender;
+          birthdayInput.value = data.student.Birthday;
+        }
+      })
+      .catch((error) =>
+        console.error("Помилка завантаження даних студента:", error)
+      );
+  }
+
+  function openDeleteModal(studentId) {
+    delModal.style.display = "block";
+    const questionText = document.getElementById("question");
+    questionText.textContent = `Are you sure you want to delete student with ID: ${studentId}?`;
+    delOkButton.setAttribute("data-id", studentId);
+  }
+
+  function closeAddEditModal() {
+    addEditModal.style.display = "none";
+  }
+
+  function closeDeleteModal() {
+    delModal.style.display = "none";
+  }
+
+  function clearValidationErrors() {
+    document
+      .querySelectorAll(".error-message")
+      .forEach((div) => (div.textContent = ""));
+  }
+
+  studentForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+    const action = currentEditId ? "edit" : "add";
+    const url = currentEditId
+      ? `/students?route=students&action=edit&id=${currentEditId}`
+      : "/students?route=students&action=add";
+
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          closeAddEditModal();
+          loadStudents(currentPage); // Перезавантажити поточну сторінку
+          // Можна показати повідомлення про успіх
+        } else if (data.errors) {
+          clearValidationErrors();
+          for (const key in data.errors) {
+            const errorDivId = `${key}-error`;
+            const errorDiv = document.getElementById(errorDivId);
+            if (errorDiv) {
+              errorDiv.textContent = data.errors[key];
+            } else {
+              // Загальна помилка, якщо немає конкретного поля
+              console.error("Помилка валідації:", data.errors[key]);
+              // Можна відобразити в якомусь загальному блоці повідомлень
+            }
+          }
+        } else if (data.error) {
+          console.error("Помилка сервера:", data.error);
+          // Показати повідомлення про помилку сервера
+        }
+      })
+      .catch((error) => console.error("Помилка відправки форми:", error));
+  });
+
+  delOkButton.addEventListener("click", function () {
+    const studentIdToDelete = this.getAttribute("data-id");
+    fetch(`/students?route=students&action=delete&id=${studentIdToDelete}`, {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        closeDeleteModal();
+        if (data.success) {
+          loadStudents(currentPage); // Перезавантажити поточну сторінку
+          // Можна показати повідомлення про успішне видалення
+        } else if (data.message) {
+          console.error("Помилка видалення:", data.message);
+          // Показати повідомлення про помилку видалення
+        }
+      })
+      .catch((error) => console.error("Помилка видалення студента:", error));
+  });
+
+  addButton.addEventListener("click", openAddModal);
+  addEditExitBut.addEventListener("click", closeAddEditModal);
+  delExit.addEventListener("click", closeDeleteModal);
+  delCancelButton.addEventListener("click", closeDeleteModal);
+
+  // Завантаження студентів при завантаженні сторінки
+  loadStudents(currentPage);
+});
