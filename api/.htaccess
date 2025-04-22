@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteRule ^students$ /PVI_lab1/api/index.php [L]
+RewriteRule ^students/pagination$ /PVI_lab1/api/index.php [L]
+RewriteRule ^login$ /PVI_lab1/api/index.php [L]
